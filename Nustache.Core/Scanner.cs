@@ -25,23 +25,23 @@ namespace Nustache.Core
 
                 if (marker[0] == '#')
                 {
-                    yield return new Block(marker.Substring(1));
+                    yield return new Block(marker.Substring(1).Trim());
                 } 
                 else if (marker[0] == '^') 
                 {
-                    yield return new InvertedBlock(marker.Substring(1));
+                  yield return new InvertedBlock(marker.Substring(1).Trim());
                 }
                 else if (marker[0] == '<')
                 {
-                    yield return new TemplateDefinition(marker.Substring(1));
+                  yield return new TemplateDefinition(marker.Substring(1).Trim());
                 }
                 else if (marker[0] == '/')
                 {
-                    yield return new EndSection(marker.Substring(1));
+                  yield return new EndSection(marker.Substring(1).Trim());
                 }
                 else if (marker[0] == '>')
                 {
-                    yield return new TemplateInclude(marker.Substring(1));
+                  yield return new TemplateInclude(marker.Substring(1).Trim());
                 }
                 else if (marker[0] != '!')
                 {
