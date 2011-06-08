@@ -52,7 +52,7 @@ namespace Nustache.Core
 
         public IEnumerable<object> GetValues(string name)
         {
-            object value = GetValue(name);
+            object value = GetValue(name.Replace("?",""));
 
             if (value is bool)
             {
@@ -61,7 +61,7 @@ namespace Nustache.Core
                     yield return value;
                 }
             }
-            else if (value is IEnumerable && !(value is string))
+            else if (value is IEnumerable && !(value is string) && !name.EndsWith("?"))
             {
                 foreach (var item in ((IEnumerable)value))
                 {
