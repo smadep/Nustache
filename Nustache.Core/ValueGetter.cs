@@ -18,8 +18,8 @@ namespace Nustache.Core
         private static ValueGetter GetValueGetter(object target, string name)
         {
             return PropertyDescriptorValueGetter.GetPropertyDescriptorValueGetter(target, name)
+                ?? DictionaryValueGetter.GetDictionaryValueGetter(target, name) 
                 ?? GenericDictionaryValueGetter.GetGenericDictionaryValueGetter(target, name)
-                ?? DictionaryValueGetter.GetDictionaryValueGetter(target, name)
                 ?? MethodInfoValueGetter.GetMethodInfoValueGetter(target, name)
                 ?? PropertyInfoValueGetter.GetPropertyInfoValueGetter(target, name)
                 ?? FieldInfoValueGetter.GetFieldInfoValueGetter(target, name)
