@@ -23,6 +23,7 @@ namespace Nustache.Core
                 ?? MethodInfoValueGetter.GetMethodInfoValueGetter(target, name)
                 ?? PropertyInfoValueGetter.GetPropertyInfoValueGetter(target, name)
                 ?? FieldInfoValueGetter.GetFieldInfoValueGetter(target, name)
+                ?? KeyValuePairGetter.GetKeyValuePairValueGetter(target, name)
                 ?? (ValueGetter)new NullValueGetter();
         }
 
@@ -208,6 +209,39 @@ namespace Nustache.Core
         {
             return _target[_key];
         }
+    }
+
+    internal class KeyValuePairGetter : ValueGetter
+    {
+      internal static KeyValuePairGetter GetKeyValuePairValueGetter(object target, string name)
+        {
+            if (target is KeyValuePair<string, object>)
+            {
+                var pair = (KeyValuePair<string, object>)target;
+
+                if (pair.Key == name)
+                {
+                  return new KeyValuePairGetter(pair, name);
+                }
+            }
+
+            return null;
+        }
+
+        private readonly KeyValuePair<string, object> _target;
+        private readonly string _key;
+
+        private KeyValuePairGetter(KeyValuePair<string, object> target, string key)
+        {
+            _target = target;
+            _key = key;
+        }
+
+
+      public override object GetValue()
+      {
+        return _target.Value;
+      }
     }
 
     internal class GenericDictionaryValueGetter : ValueGetter
