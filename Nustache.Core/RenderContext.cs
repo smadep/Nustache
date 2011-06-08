@@ -61,7 +61,7 @@ namespace Nustache.Core
                     yield return value;
                 }
             }
-            else if (value is IEnumerable && !(value is string) && !name.EndsWith("?"))
+            else if (value is IEnumerable && !(value is string) && !name.EndsWith("?") && !(value is IDictionary))
             {
                 foreach (var item in ((IEnumerable)value))
                 {
